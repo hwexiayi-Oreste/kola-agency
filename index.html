@@ -58,12 +58,10 @@
     font-weight: 700;
     color: var(--blanc);
     letter-spacing: -0.03em;
+    text-decoration: none;
   }
 
-  .logo span {
-    color: var(--cyan);
-    font-weight: 700;
-  }
+  .logo span { color: var(--cyan); font-weight: 700; }
 
   nav ul {
     display: flex;
@@ -80,6 +78,8 @@
     position: relative;
   }
 
+  nav a.active { color: var(--cyan); }
+
   nav a::after {
     content: '';
     position: absolute;
@@ -92,7 +92,7 @@
   }
 
   nav a:hover { color: var(--cyan); }
-  nav a:hover::after { width: 100%; }
+  nav a:hover::after, nav a.active::after { width: 100%; }
 
   .menu-toggle {
     display: none;
@@ -250,10 +250,7 @@
     margin-bottom: 5px;
   }
 
-  .stat-item p {
-    color: var(--gris);
-    font-size: 0.9rem;
-  }
+  .stat-item p { color: var(--gris); font-size: 0.9rem; }
 
   /* === SERVICES === */
   .services {
@@ -312,9 +309,7 @@
   .service-card::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
+    top: 0; left: 0; right: 0;
     height: 3px;
     background: linear-gradient(90deg, var(--cyan), var(--cyan-clair));
     transform: scaleX(0);
@@ -330,22 +325,11 @@
 
   .service-card:hover::before { transform: scaleX(1); }
 
-  .service-icon {
-    font-size: 2.5rem;
-    margin-bottom: 20px;
-  }
+  .service-icon { font-size: 2.5rem; margin-bottom: 20px; }
 
-  .service-card h3 {
-    font-size: 1.3rem;
-    margin-bottom: 12px;
-    color: var(--blanc);
-  }
+  .service-card h3 { font-size: 1.3rem; margin-bottom: 12px; color: var(--blanc); }
 
-  .service-card p {
-    color: var(--gris-clair);
-    font-size: 0.92rem;
-    line-height: 1.6;
-  }
+  .service-card p { color: var(--gris-clair); font-size: 0.92rem; line-height: 1.6; }
 
   /* === CTA SECTION === */
   .cta-section {
@@ -361,11 +345,9 @@
   .cta-section::before {
     content: '';
     position: absolute;
-    top: 50%;
-    left: 50%;
+    top: 50%; left: 50%;
     transform: translate(-50%, -50%);
-    width: 800px;
-    height: 800px;
+    width: 800px; height: 800px;
     background: radial-gradient(circle, rgba(6, 182, 212, 0.1) 0%, transparent 60%);
     border-radius: 50%;
     z-index: 0;
@@ -373,10 +355,7 @@
 
   .cta-section > * { position: relative; z-index: 1; }
 
-  .cta-section h2 {
-    font-size: clamp(2rem, 4vw, 3rem);
-    margin-bottom: 20px;
-  }
+  .cta-section h2 { font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 20px; }
 
   .cta-section p {
     color: var(--gris-clair);
@@ -401,11 +380,7 @@
     margin: 0 auto 40px;
   }
 
-  .footer-col h4 {
-    color: var(--cyan);
-    margin-bottom: 20px;
-    font-size: 1.1rem;
-  }
+  .footer-col h4 { color: var(--cyan); margin-bottom: 20px; font-size: 1.1rem; }
 
   .footer-col p, .footer-col a {
     color: var(--gris);
@@ -429,10 +404,8 @@
   /* === WHATSAPP FLOATING === */
   .whatsapp-float {
     position: fixed;
-    bottom: 30px;
-    right: 30px;
-    width: 60px;
-    height: 60px;
+    bottom: 30px; right: 30px;
+    width: 60px; height: 60px;
     background: #25d366;
     border-radius: 50%;
     display: flex;
@@ -446,9 +419,7 @@
     animation: pulse 2s infinite;
   }
 
-  .whatsapp-float:hover {
-    transform: scale(1.1);
-  }
+  .whatsapp-float:hover { transform: scale(1.1); }
 
   @keyframes pulse {
     0%, 100% { box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4); }
@@ -460,26 +431,18 @@
     nav ul {
       display: none;
       position: absolute;
-      top: 100%;
-      left: 0;
-      right: 0;
+      top: 100%; left: 0; right: 0;
       background: var(--bleu-nuit-2);
       flex-direction: column;
       padding: 20px;
       gap: 15px;
       border-top: 1px solid rgba(6, 182, 212, 0.15);
     }
-
     nav ul.active { display: flex; }
-
     .menu-toggle { display: block; }
-
     .hero { padding: 120px 5% 60px; }
-
     .stats { gap: 30px; }
-
     .cta-group { flex-direction: column; }
-
     .btn { justify-content: center; }
   }
 
@@ -490,9 +453,7 @@
     animation: fadeInUp 0.8s forwards;
   }
 
-  @keyframes fadeInUp {
-    to { opacity: 1; transform: translateY(0); }
-  }
+  @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
 
   .delay-1 { animation-delay: 0.2s; }
   .delay-2 { animation-delay: 0.4s; }
@@ -504,15 +465,15 @@
 
 <!-- HEADER -->
 <header>
-  <div class="logo">Kol<span>@</span> Agency</div>
+  <a href="./index.html" class="logo">Kol<span>@</span> Agency</a>
   <nav>
     <ul id="nav-menu">
-      <li><a href="#accueil">Accueil</a></li>
-      <li><a href="#services">Services</a></li>
-      <li><a href="#portfolio">Portfolio</a></li>
-      <li><a href="#devis">Devis</a></li>
-      <li><a href="#blog">Blog</a></li>
-      <li><a href="#contact">Contact</a></li>
+      <li><a href="./index.html" class="active">Accueil</a></li>
+      <li><a href="./services.html">Services</a></li>
+      <li><a href="./portfolio.html">Portfolio</a></li>
+      <li><a href="./devis.html">Devis</a></li>
+      <li><a href="./blog.html">Blog</a></li>
+      <li><a href="./contact.html">Contact</a></li>
     </ul>
     <button class="menu-toggle" onclick="document.getElementById('nav-menu').classList.toggle('active')">☰</button>
   </nav>
@@ -531,8 +492,8 @@
       Kol@ Agency vous accompagne dans tous vos projets numériques : graphisme, sites web, blogs, applications, e-commerce, réseaux sociaux et bien plus. Une expertise locale, des standards internationaux.
     </p>
     <div class="cta-group fade-in delay-3">
-      <a href="#devis" class="btn btn-primary">Demander un devis →</a>
-      <a href="#services" class="btn btn-secondary">Voir nos services</a>
+      <a href="./devis.html" class="btn btn-primary">Demander un devis →</a>
+      <a href="./services.html" class="btn btn-secondary">Voir nos services</a>
     </div>
 
     <div class="stats fade-in delay-4">
@@ -561,62 +522,62 @@
   </div>
 
   <div class="services-grid">
-    <div class="service-card">
+    <div class="service-card" onclick="window.location='./services.html'">
       <div class="service-icon">🎨</div>
       <h3>Graphisme</h3>
       <p>Logo, carte de visite, flyer, charte graphique complète.</p>
     </div>
-    <div class="service-card">
+    <div class="service-card" onclick="window.location='./services.html'">
       <div class="service-icon">🌐</div>
       <h3>Sites Web</h3>
       <p>Sites vitrines, événementiels, landing pages professionnelles.</p>
     </div>
-    <div class="service-card">
+    <div class="service-card" onclick="window.location='./services.html'">
       <div class="service-icon">📝</div>
       <h3>Blogs</h3>
       <p>Blogs personnels, professionnels ou thématiques optimisés.</p>
     </div>
-    <div class="service-card">
+    <div class="service-card" onclick="window.location='./services.html'">
       <div class="service-icon">⚙️</div>
       <h3>Applications Web</h3>
       <p>Outils métiers, gestion, devis, applications sur mesure.</p>
     </div>
-    <div class="service-card">
+    <div class="service-card" onclick="window.location='./services.html'">
       <div class="service-icon">📱</div>
       <h3>Réseaux Sociaux</h3>
       <p>Gestion Facebook, Instagram, TikTok et community management.</p>
     </div>
-    <div class="service-card">
+    <div class="service-card" onclick="window.location='./services.html'">
       <div class="service-icon">📣</div>
       <h3>Publicité Digitale</h3>
       <p>Campagnes Facebook Ads et Google Ads performantes.</p>
     </div>
-    <div class="service-card">
+    <div class="service-card" onclick="window.location='./services.html'">
       <div class="service-icon">🛒</div>
       <h3>E-commerce</h3>
       <p>Boutiques en ligne avec paiement MTN MoMo & Moov Money.</p>
     </div>
-    <div class="service-card">
+    <div class="service-card" onclick="window.location='./services.html'">
       <div class="service-icon">🔍</div>
       <h3>SEO</h3>
       <p>Référencement naturel pour apparaître en tête sur Google.</p>
     </div>
-    <div class="service-card">
+    <div class="service-card" onclick="window.location='./services.html'">
       <div class="service-icon">🤖</div>
       <h3>Automatisation</h3>
       <p>Chatbots WhatsApp et campagnes d'email marketing.</p>
     </div>
-    <div class="service-card">
+    <div class="service-card" onclick="window.location='./services.html'">
       <div class="service-icon">🎓</div>
       <h3>Formation</h3>
       <p>Formation des PME aux outils numériques essentiels.</p>
     </div>
-    <div class="service-card">
+    <div class="service-card" onclick="window.location='./services.html'">
       <div class="service-icon">🎬</div>
       <h3>Vidéo & Motion</h3>
       <p>Montage vidéo et motion design pour vos contenus.</p>
     </div>
-    <div class="service-card">
+    <div class="service-card" onclick="window.location='./services.html'">
       <div class="service-icon">🔧</div>
       <h3>Maintenance</h3>
       <p>Hébergement et maintenance mensuelle de vos sites.</p>
@@ -629,7 +590,7 @@
   <h2>Prêt à <span style="color: var(--cyan);">démarrer</span> votre projet ?</h2>
   <p>Obtenez un devis personnalisé en quelques clics ou contactez-nous directement sur WhatsApp.</p>
   <div class="cta-group" style="justify-content: center;">
-    <a href="#devis" class="btn btn-primary">Devis gratuit →</a>
+    <a href="./devis.html" class="btn btn-primary">Devis gratuit →</a>
     <a href="https://wa.me/22969911648" class="btn btn-secondary">💬 WhatsApp</a>
   </div>
 </section>
@@ -638,22 +599,22 @@
 <footer>
   <div class="footer-content">
     <div class="footer-col">
-      <div class="logo" style="margin-bottom: 15px;">Kol<span>@</span> Agency</div>
+      <a href="./index.html" class="logo" style="display: block; margin-bottom: 15px;">Kol<span>@</span> Agency</a>
       <p>Agence digitale premium basée à Akpokpota, Sèmè Podji, Bénin.</p>
     </div>
     <div class="footer-col">
       <h4>Services</h4>
-      <a href="#services">Graphisme</a>
-      <a href="#services">Sites web</a>
-      <a href="#services">Applications</a>
-      <a href="#services">E-commerce</a>
+      <a href="./services.html">Graphisme</a>
+      <a href="./services.html">Sites web</a>
+      <a href="./services.html">Applications</a>
+      <a href="./services.html">E-commerce</a>
     </div>
     <div class="footer-col">
       <h4>Liens</h4>
-      <a href="#portfolio">Portfolio</a>
-      <a href="#devis">Devis</a>
-      <a href="#blog">Blog</a>
-      <a href="#contact">Contact</a>
+      <a href="./portfolio.html">Portfolio</a>
+      <a href="./devis.html">Devis</a>
+      <a href="./blog.html">Blog</a>
+      <a href="./contact.html">Contact</a>
     </div>
     <div class="footer-col">
       <h4>Contact</h4>
