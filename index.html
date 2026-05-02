@@ -39,9 +39,7 @@
   /* === HEADER === */
   header {
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
+    top: 0; left: 0; right: 0;
     z-index: 100;
     padding: 20px 5%;
     background: rgba(10, 22, 40, 0.85);
@@ -63,11 +61,7 @@
 
   .logo span { color: var(--cyan); font-weight: 700; }
 
-  nav ul {
-    display: flex;
-    list-style: none;
-    gap: 35px;
-  }
+  nav ul { display: flex; list-style: none; gap: 35px; }
 
   nav a {
     color: var(--gris-clair);
@@ -83,10 +77,8 @@
   nav a::after {
     content: '';
     position: absolute;
-    bottom: -5px;
-    left: 0;
-    width: 0;
-    height: 2px;
+    bottom: -5px; left: 0;
+    width: 0; height: 2px;
     background: var(--cyan);
     transition: width 0.3s;
   }
@@ -116,10 +108,8 @@
   .hero::before {
     content: '';
     position: absolute;
-    top: 10%;
-    right: -10%;
-    width: 600px;
-    height: 600px;
+    top: 10%; right: -10%;
+    width: 600px; height: 600px;
     background: radial-gradient(circle, rgba(6, 182, 212, 0.2) 0%, transparent 70%);
     border-radius: 50%;
     z-index: 0;
@@ -128,10 +118,8 @@
   .hero::after {
     content: '';
     position: absolute;
-    bottom: 5%;
-    left: -10%;
-    width: 500px;
-    height: 500px;
+    bottom: 5%; left: -10%;
+    width: 500px; height: 500px;
     background: radial-gradient(circle, rgba(103, 232, 249, 0.15) 0%, transparent 70%);
     border-radius: 50%;
     z-index: 0;
@@ -149,11 +137,7 @@
     -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
   }
 
-  .hero-content {
-    position: relative;
-    z-index: 1;
-    max-width: 900px;
-  }
+  .hero-content { position: relative; z-index: 1; max-width: 900px; }
 
   .hero-tag {
     display: inline-block;
@@ -191,11 +175,7 @@
     max-width: 650px;
   }
 
-  .cta-group {
-    display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
-  }
+  .cta-group { display: flex; gap: 20px; flex-wrap: wrap; }
 
   .btn {
     padding: 16px 35px;
@@ -236,21 +216,262 @@
     transform: translateY(-3px);
   }
 
-  /* === STATS === */
-  .stats {
+  .stats { display: flex; gap: 60px; margin-top: 60px; flex-wrap: wrap; }
+  .stat-item h3 { font-size: 2.5rem; color: var(--cyan); margin-bottom: 5px; }
+  .stat-item p { color: var(--gris); font-size: 0.9rem; }
+
+  /* ======================== */
+  /* === SECTION À PROPOS === */
+  /* ======================== */
+  .about {
+    padding: 100px 5%;
+    background: var(--bleu-nuit);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .about::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -10%;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(6, 182, 212, 0.08) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+
+  .about-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 70px;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Côté gauche — visuel */
+  .about-visual {
+    position: relative;
+  }
+
+  .about-card-main {
+    background: var(--bleu-nuit-2);
+    border: 1px solid rgba(6, 182, 212, 0.2);
+    border-radius: 24px;
+    padding: 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .about-card-main::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--cyan), var(--cyan-clair));
+  }
+
+  .about-avatar {
+    width: 100px; height: 100px;
+    background: linear-gradient(135deg, var(--cyan) 0%, var(--cyan-fonce) 100%);
+    border-radius: 50%;
     display: flex;
-    gap: 60px;
-    margin-top: 60px;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.8rem;
+    margin: 0 auto 20px;
+    box-shadow: 0 10px 30px rgba(6, 182, 212, 0.3);
+  }
+
+  .about-card-main h3 {
+    font-size: 1.4rem;
+    margin-bottom: 6px;
+    color: var(--blanc);
+  }
+
+  .about-card-main .titre {
+    color: var(--cyan);
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-bottom: 20px;
+  }
+
+  .about-card-main .localisation {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--gris);
+    font-size: 0.85rem;
+    background: var(--bleu-nuit-3);
+    padding: 6px 14px;
+    border-radius: 50px;
+    margin-bottom: 25px;
+  }
+
+  .about-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+  }
+
+  .about-badge {
+    padding: 6px 14px;
+    background: rgba(6, 182, 212, 0.1);
+    border: 1px solid rgba(6, 182, 212, 0.25);
+    border-radius: 50px;
+    font-size: 0.78rem;
+    color: var(--cyan-clair);
+    font-weight: 500;
+  }
+
+  /* Mini cartes stats */
+  .about-mini-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-top: 15px;
+  }
+
+  .mini-card {
+    background: var(--bleu-nuit-2);
+    border: 1px solid rgba(6, 182, 212, 0.12);
+    border-radius: 14px;
+    padding: 18px;
+    text-align: center;
+    transition: all 0.3s;
+  }
+
+  .mini-card:hover {
+    border-color: var(--cyan);
+    transform: translateY(-3px);
+  }
+
+  .mini-card h4 {
+    font-size: 1.8rem;
+    color: var(--cyan);
+    margin-bottom: 4px;
+  }
+
+  .mini-card p { font-size: 0.78rem; color: var(--gris); }
+
+  /* Côté droit — texte */
+  .about-content .section-tag {
+    color: var(--cyan);
+    font-size: 0.9rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+    font-weight: 600;
+    font-family: 'Space Grotesk', sans-serif;
+    display: block;
+  }
+
+  .about-content h2 {
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    margin-bottom: 20px;
+    line-height: 1.2;
+  }
+
+  .about-content h2 .accent { color: var(--cyan); }
+
+  .about-content .intro {
+    color: var(--gris-clair);
+    font-size: 1rem;
+    line-height: 1.8;
+    margin-bottom: 30px;
+  }
+
+  /* Onglets mission / parcours / valeurs */
+  .about-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
     flex-wrap: wrap;
   }
 
-  .stat-item h3 {
-    font-size: 2.5rem;
-    color: var(--cyan);
-    margin-bottom: 5px;
+  .tab-btn {
+    padding: 8px 18px;
+    border-radius: 50px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+    border: 2px solid rgba(6, 182, 212, 0.25);
+    background: transparent;
+    color: var(--gris-clair);
+    transition: all 0.3s;
   }
 
-  .stat-item p { color: var(--gris); font-size: 0.9rem; }
+  .tab-btn.active {
+    background: var(--cyan);
+    color: var(--bleu-nuit);
+    border-color: var(--cyan);
+  }
+
+  .tab-btn:hover:not(.active) {
+    border-color: var(--cyan);
+    color: var(--cyan);
+  }
+
+  .tab-content { display: none; animation: fadeIn 0.4s; }
+  .tab-content.active { display: block; }
+
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+  .tab-content p {
+    color: var(--gris-clair);
+    font-size: 0.95rem;
+    line-height: 1.8;
+    margin-bottom: 15px;
+  }
+
+  .tab-list { list-style: none; }
+
+  .tab-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(6, 182, 212, 0.08);
+    color: var(--gris-clair);
+    font-size: 0.92rem;
+  }
+
+  .tab-list li:last-child { border-bottom: none; }
+
+  .tab-list .ico {
+    width: 32px; height: 32px;
+    background: rgba(6, 182, 212, 0.12);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+
+  .tab-list .txt h5 {
+    font-size: 0.9rem;
+    color: var(--blanc);
+    margin-bottom: 2px;
+  }
+
+  .tab-list .txt p {
+    font-size: 0.82rem;
+    color: var(--gris);
+    margin: 0;
+  }
+
+  /* CTA about */
+  .about-cta {
+    display: flex;
+    gap: 12px;
+    margin-top: 25px;
+    flex-wrap: wrap;
+  }
 
   /* === SERVICES === */
   .services {
@@ -259,10 +480,7 @@
     position: relative;
   }
 
-  .section-header {
-    text-align: center;
-    margin-bottom: 60px;
-  }
+  .section-header { text-align: center; margin-bottom: 60px; }
 
   .section-tag {
     color: var(--cyan);
@@ -274,18 +492,9 @@
     font-family: 'Space Grotesk', sans-serif;
   }
 
-  .section-header h2 {
-    font-size: clamp(2rem, 4vw, 3.5rem);
-    margin-bottom: 20px;
-  }
-
+  .section-header h2 { font-size: clamp(2rem, 4vw, 3.5rem); margin-bottom: 20px; }
   .section-header h2 .accent { color: var(--cyan); }
-
-  .section-header p {
-    color: var(--gris-clair);
-    max-width: 600px;
-    margin: 0 auto;
-  }
+  .section-header p { color: var(--gris-clair); max-width: 600px; margin: 0 auto; }
 
   .services-grid {
     display: grid;
@@ -324,11 +533,8 @@
   }
 
   .service-card:hover::before { transform: scaleX(1); }
-
   .service-icon { font-size: 2.5rem; margin-bottom: 20px; }
-
   .service-card h3 { font-size: 1.3rem; margin-bottom: 12px; color: var(--blanc); }
-
   .service-card p { color: var(--gris-clair); font-size: 0.92rem; line-height: 1.6; }
 
   /* === CTA SECTION === */
@@ -354,16 +560,8 @@
   }
 
   .cta-section > * { position: relative; z-index: 1; }
-
   .cta-section h2 { font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 20px; }
-
-  .cta-section p {
-    color: var(--gris-clair);
-    margin-bottom: 35px;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-  }
+  .cta-section p { color: var(--gris-clair); margin-bottom: 35px; max-width: 600px; margin-left: auto; margin-right: auto; }
 
   /* === FOOTER === */
   footer {
@@ -381,16 +579,10 @@
   }
 
   .footer-col h4 { color: var(--cyan); margin-bottom: 20px; font-size: 1.1rem; }
-
   .footer-col p, .footer-col a {
-    color: var(--gris);
-    font-size: 0.9rem;
-    text-decoration: none;
-    display: block;
-    margin-bottom: 10px;
-    transition: color 0.3s;
+    color: var(--gris); font-size: 0.9rem; text-decoration: none;
+    display: block; margin-bottom: 10px; transition: color 0.3s;
   }
-
   .footer-col a:hover { color: var(--cyan); }
 
   .footer-bottom {
@@ -401,7 +593,7 @@
     font-size: 0.85rem;
   }
 
-  /* === WHATSAPP FLOATING === */
+  /* === WHATSAPP === */
   .whatsapp-float {
     position: fixed;
     bottom: 30px; right: 30px;
@@ -427,6 +619,11 @@
   }
 
   /* === RESPONSIVE === */
+  @media (max-width: 968px) {
+    .about-inner { grid-template-columns: 1fr; gap: 40px; }
+    .about-visual { max-width: 500px; margin: 0 auto; }
+  }
+
   @media (max-width: 768px) {
     nav ul {
       display: none;
@@ -444,6 +641,8 @@
     .stats { gap: 30px; }
     .cta-group { flex-direction: column; }
     .btn { justify-content: center; }
+    .about-mini-cards { grid-template-columns: 1fr 1fr; }
+    .about-cta { flex-direction: column; }
   }
 
   /* === ANIMATIONS === */
@@ -495,21 +694,158 @@
       <a href="./devis.html" class="btn btn-primary">Demander un devis →</a>
       <a href="./services.html" class="btn btn-secondary">Voir nos services</a>
     </div>
-
     <div class="stats fade-in delay-4">
-      <div class="stat-item">
-        <h3>13+</h3>
-        <p>Services proposés</p>
+      <div class="stat-item"><h3>13+</h3><p>Services proposés</p></div>
+      <div class="stat-item"><h3>100%</h3><p>Local & sur mesure</p></div>
+      <div class="stat-item"><h3>24/7</h3><p>Support WhatsApp</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- À PROPOS -->
+<section class="about" id="apropos">
+  <div class="about-inner">
+
+    <!-- VISUEL GAUCHE -->
+    <div class="about-visual">
+      <div class="about-card-main">
+        <div class="about-avatar">👨‍💻</div>
+        <h3>Oreste Kolawolé</h3>
+        <div class="titre">Expert Digital & Consultant en Transformation Numérique</div>
+        <div class="localisation">📍 Akpokpota, Sèmè Podji — Bénin</div>
+        <div class="about-badges">
+          <span class="about-badge">Développeur Web</span>
+          <span class="about-badge">Électricien</span>
+          <span class="about-badge">Consultant Digital</span>
+          <span class="about-badge">Fondateur Kol@</span>
+        </div>
       </div>
-      <div class="stat-item">
-        <h3>100%</h3>
-        <p>Local & sur mesure</p>
-      </div>
-      <div class="stat-item">
-        <h3>24/7</h3>
-        <p>Support WhatsApp</p>
+
+      <div class="about-mini-cards">
+        <div class="mini-card">
+          <h4>7+</h4>
+          <p>Projets livrés</p>
+        </div>
+        <div class="mini-card">
+          <h4>3+</h4>
+          <p>Années d'expérience</p>
+        </div>
+        <div class="mini-card">
+          <h4>13</h4>
+          <p>Services offerts</p>
+        </div>
+        <div class="mini-card">
+          <h4>100%</h4>
+          <p>Satisfaction client</p>
+        </div>
       </div>
     </div>
+
+    <!-- CONTENU DROIT -->
+    <div class="about-content">
+      <span class="section-tag">À propos</span>
+      <h2>Qui est <span class="accent">Kol@ Agency</span> ?</h2>
+      <p class="intro">
+        Kol@ Agency est une agence digitale premium fondée et dirigée par Oreste Kolawolé, basée à Sèmè Podji au Bénin. Notre force : allier expertise technique, connaissance du terrain africain et passion pour l'innovation numérique.
+      </p>
+
+      <!-- ONGLETS -->
+      <div class="about-tabs">
+        <button class="tab-btn active" onclick="afficherTab('mission', this)">🎯 Mission</button>
+        <button class="tab-btn" onclick="afficherTab('parcours', this)">🛤️ Parcours</button>
+        <button class="tab-btn" onclick="afficherTab('valeurs', this)">💎 Valeurs</button>
+      </div>
+
+      <!-- Mission -->
+      <div class="tab-content active" id="tab-mission">
+        <p>Notre mission est de rendre le numérique accessible à tous les entrepreneurs, artisans et PME d'Afrique de l'Ouest — sans barrière de coût ni de complexité technique.</p>
+        <ul class="tab-list">
+          <li>
+            <div class="ico">🌍</div>
+            <div class="txt">
+              <h5>Numérique pour tous</h5>
+              <p>Des solutions adaptées aux réalités locales : Mobile Money, mobile-first, offline</p>
+            </div>
+          </li>
+          <li>
+            <div class="ico">💡</div>
+            <div class="txt">
+              <h5>Innovation locale</h5>
+              <p>Des outils pensés pour l'Afrique de l'Ouest, pas copiés de l'Occident</p>
+            </div>
+          </li>
+          <li>
+            <div class="ico">🤝</div>
+            <div class="txt">
+              <h5>Accompagnement complet</h5>
+              <p>De la conception à la livraison, nous restons présents à chaque étape</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Parcours -->
+      <div class="tab-content" id="tab-parcours">
+        <p>Un parcours atypique qui fait notre force : de l'électricité au digital, Oreste a tout appris sur le terrain, en autodidacte, pour répondre à de vrais besoins locaux.</p>
+        <ul class="tab-list">
+          <li>
+            <div class="ico">⚡</div>
+            <div class="txt">
+              <h5>Artisan électricien</h5>
+              <p>Formation et pratique terrain — compréhension profonde des métiers manuels</p>
+            </div>
+          </li>
+          <li>
+            <div class="ico">💻</div>
+            <div class="txt">
+              <h5>Développeur autodidacte</h5>
+              <p>HTML, CSS, JavaScript, Python, Node.js — appris en construisant de vrais projets</p>
+            </div>
+          </li>
+          <li>
+            <div class="ico">🚀</div>
+            <div class="txt">
+              <h5>Fondation de Kol@ Agency</h5>
+              <p>Création de l'agence pour servir les artisans et PME du Bénin et d'Afrique de l'Ouest</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Valeurs -->
+      <div class="tab-content" id="tab-valeurs">
+        <p>Trois valeurs guident chacun de nos projets et définissent notre manière de travailler avec nos clients.</p>
+        <ul class="tab-list">
+          <li>
+            <div class="ico">🤲</div>
+            <div class="txt">
+              <h5>Proximité</h5>
+              <p>Nous parlons votre langue, connaissons vos contraintes et restons disponibles</p>
+            </div>
+          </li>
+          <li>
+            <div class="ico">⭐</div>
+            <div class="txt">
+              <h5>Qualité</h5>
+              <p>Standards internationaux adaptés aux réalités africaines — pas de compromis</p>
+            </div>
+          </li>
+          <li>
+            <div class="ico">🔮</div>
+            <div class="txt">
+              <h5>Innovation locale</h5>
+              <p>Des solutions créatives qui répondent aux vrais problèmes du marché béninois</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="about-cta">
+        <a href="./devis.html" class="btn btn-primary">Démarrer un projet →</a>
+        <a href="https://wa.me/22969911648" class="btn btn-secondary">💬 Me contacter</a>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -628,8 +964,16 @@
   </div>
 </footer>
 
-<!-- WHATSAPP FLOAT -->
 <a href="https://wa.me/22969911648" class="whatsapp-float" aria-label="WhatsApp">💬</a>
+
+<script>
+  function afficherTab(id, btn) {
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + id).classList.add('active');
+    btn.classList.add('active');
+  }
+</script>
 
 </body>
 </html>
