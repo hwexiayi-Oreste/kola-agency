@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kol@ Agency — Agence Digitale Premium au Bénin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bleu-nuit: #0a1628;
+    --bleu-nuit-2: #0f1f3d;
+    --bleu-nuit-3: #16294f;
+    --cyan: #06b6d4;
+    --cyan-clair: #67e8f9;
+    --cyan-fonce: #0891b2;
+    --blanc: #ffffff;
+    --gris: #94a3b8;
+    --gris-clair: #cbd5e1;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bleu-nuit);
+    color: var(--blanc);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  /* === HEADER === */
+  header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    padding: 20px 5%;
+    background: rgba(10, 22, 40, 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(6, 182, 212, 0.15);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .logo {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--blanc);
+    letter-spacing: -0.03em;
+  }
+
+  .logo span {
+    color: var(--cyan);
+    font-weight: 700;
+  }
+
+  nav ul {
+    display: flex;
+    list-style: none;
+    gap: 35px;
+  }
+
+  nav a {
+    color: var(--gris-clair);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: color 0.3s;
+    position: relative;
+  }
+
+  nav a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--cyan);
+    transition: width 0.3s;
+  }
+
+  nav a:hover { color: var(--cyan); }
+  nav a:hover::after { width: 100%; }
+
+  .menu-toggle {
+    display: none;
+    font-size: 1.8rem;
+    cursor: pointer;
+    color: var(--cyan);
+    background: none;
+    border: none;
+  }
+
+  /* === HERO === */
+  .hero {
+    min-height: 100vh;
+    padding: 140px 5% 80px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 10%;
+    right: -10%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(6, 182, 212, 0.2) 0%, transparent 70%);
+    border-radius: 50%;
+    z-index: 0;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: 5%;
+    left: -10%;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(103, 232, 249, 0.15) 0%, transparent 70%);
+    border-radius: 50%;
+    z-index: 0;
+  }
+
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(6, 182, 212, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(6, 182, 212, 0.05) 1px, transparent 1px);
+    background-size: 60px 60px;
+    z-index: 0;
+    mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
+    -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+  }
+
+  .hero-tag {
+    display: inline-block;
+    padding: 8px 20px;
+    background: rgba(6, 182, 212, 0.1);
+    border: 1px solid var(--cyan);
+    border-radius: 50px;
+    color: var(--cyan-clair);
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin-bottom: 25px;
+    letter-spacing: 1px;
+  }
+
+  .hero h1 {
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    line-height: 1.05;
+    margin-bottom: 25px;
+    font-weight: 700;
+  }
+
+  .hero h1 .cyan { color: var(--cyan); }
+
+  .hero h1 .gradient {
+    background: linear-gradient(135deg, var(--cyan) 0%, var(--cyan-clair) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero p {
+    font-size: 1.15rem;
+    color: var(--gris-clair);
+    margin-bottom: 40px;
+    max-width: 650px;
+  }
+
+  .cta-group {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    padding: 16px 35px;
+    border-radius: 8px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: all 0.3s;
+    cursor: pointer;
+    border: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .btn-primary {
+    background: var(--cyan);
+    color: var(--bleu-nuit);
+    box-shadow: 0 10px 30px rgba(6, 182, 212, 0.3);
+  }
+
+  .btn-primary:hover {
+    background: var(--cyan-clair);
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(6, 182, 212, 0.5);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--blanc);
+    border: 2px solid rgba(6, 182, 212, 0.5);
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--cyan);
+    background: rgba(6, 182, 212, 0.1);
+    transform: translateY(-3px);
+  }
+
+  /* === STATS === */
+  .stats {
+    display: flex;
+    gap: 60px;
+    margin-top: 60px;
+    flex-wrap: wrap;
+  }
+
+  .stat-item h3 {
+    font-size: 2.5rem;
+    color: var(--cyan);
+    margin-bottom: 5px;
+  }
+
+  .stat-item p {
+    color: var(--gris);
+    font-size: 0.9rem;
+  }
+
+  /* === SERVICES === */
+  .services {
+    padding: 100px 5%;
+    background: var(--bleu-nuit-2);
+    position: relative;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+
+  .section-tag {
+    color: var(--cyan);
+    font-size: 0.9rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+    font-weight: 600;
+    font-family: 'Space Grotesk', sans-serif;
+  }
+
+  .section-header h2 {
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    margin-bottom: 20px;
+  }
+
+  .section-header h2 .accent { color: var(--cyan); }
+
+  .section-header p {
+    color: var(--gris-clair);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+    max-width: 1300px;
+    margin: 0 auto;
+  }
+
+  .service-card {
+    background: var(--bleu-nuit-3);
+    border: 1px solid rgba(6, 182, 212, 0.1);
+    border-radius: 16px;
+    padding: 30px 25px;
+    transition: all 0.4s;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .service-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--cyan), var(--cyan-clair));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s;
+  }
+
+  .service-card:hover {
+    transform: translateY(-8px);
+    border-color: var(--cyan);
+    box-shadow: 0 20px 40px rgba(6, 182, 212, 0.15);
+  }
+
+  .service-card:hover::before { transform: scaleX(1); }
+
+  .service-icon {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+  }
+
+  .service-card h3 {
+    font-size: 1.3rem;
+    margin-bottom: 12px;
+    color: var(--blanc);
+  }
+
+  .service-card p {
+    color: var(--gris-clair);
+    font-size: 0.92rem;
+    line-height: 1.6;
+  }
+
+  /* === CTA SECTION === */
+  .cta-section {
+    padding: 100px 5%;
+    text-align: center;
+    background: linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(103, 232, 249, 0.05) 100%);
+    border-top: 1px solid rgba(6, 182, 212, 0.2);
+    border-bottom: 1px solid rgba(6, 182, 212, 0.2);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-section::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 800px;
+    height: 800px;
+    background: radial-gradient(circle, rgba(6, 182, 212, 0.1) 0%, transparent 60%);
+    border-radius: 50%;
+    z-index: 0;
+  }
+
+  .cta-section > * { position: relative; z-index: 1; }
+
+  .cta-section h2 {
+    font-size: clamp(2rem, 4vw, 3rem);
+    margin-bottom: 20px;
+  }
+
+  .cta-section p {
+    color: var(--gris-clair);
+    margin-bottom: 35px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* === FOOTER === */
+  footer {
+    background: var(--bleu-nuit);
+    padding: 60px 5% 30px;
+    border-top: 1px solid rgba(6, 182, 212, 0.15);
+  }
+
+  .footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 40px;
+    max-width: 1300px;
+    margin: 0 auto 40px;
+  }
+
+  .footer-col h4 {
+    color: var(--cyan);
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+  }
+
+  .footer-col p, .footer-col a {
+    color: var(--gris);
+    font-size: 0.9rem;
+    text-decoration: none;
+    display: block;
+    margin-bottom: 10px;
+    transition: color 0.3s;
+  }
+
+  .footer-col a:hover { color: var(--cyan); }
+
+  .footer-bottom {
+    text-align: center;
+    padding-top: 30px;
+    border-top: 1px solid rgba(6, 182, 212, 0.1);
+    color: var(--gris);
+    font-size: 0.85rem;
+  }
+
+  /* === WHATSAPP FLOATING === */
+  .whatsapp-float {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    background: #25d366;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4);
+    z-index: 99;
+    text-decoration: none;
+    font-size: 1.8rem;
+    transition: all 0.3s;
+    animation: pulse 2s infinite;
+  }
+
+  .whatsapp-float:hover {
+    transform: scale(1.1);
+  }
+
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4); }
+    50% { box-shadow: 0 10px 40px rgba(37, 211, 102, 0.7); }
+  }
+
+  /* === RESPONSIVE === */
+  @media (max-width: 768px) {
+    nav ul {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: var(--bleu-nuit-2);
+      flex-direction: column;
+      padding: 20px;
+      gap: 15px;
+      border-top: 1px solid rgba(6, 182, 212, 0.15);
+    }
+
+    nav ul.active { display: flex; }
+
+    .menu-toggle { display: block; }
+
+    .hero { padding: 120px 5% 60px; }
+
+    .stats { gap: 30px; }
+
+    .cta-group { flex-direction: column; }
+
+    .btn { justify-content: center; }
+  }
+
+  /* === ANIMATIONS === */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 0.8s forwards;
+  }
+
+  @keyframes fadeInUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .delay-1 { animation-delay: 0.2s; }
+  .delay-2 { animation-delay: 0.4s; }
+  .delay-3 { animation-delay: 0.6s; }
+  .delay-4 { animation-delay: 0.8s; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="logo">Kol<span>@</span> Agency</div>
+  <nav>
+    <ul id="nav-menu">
+      <li><a href="#accueil">Accueil</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#portfolio">Portfolio</a></li>
+      <li><a href="#devis">Devis</a></li>
+      <li><a href="#blog">Blog</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="menu-toggle" onclick="document.getElementById('nav-menu').classList.toggle('active')">☰</button>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="accueil">
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <span class="hero-tag fade-in">⚡ AGENCE DIGITALE PREMIUM — BÉNIN</span>
+    <h1 class="fade-in delay-1">
+      Donnez vie à <span class="cyan">vos idées</span><br>
+      avec une touche <span class="gradient">premium</span>
+    </h1>
+    <p class="fade-in delay-2">
+      Kol@ Agency vous accompagne dans tous vos projets numériques : graphisme, sites web, blogs, applications, e-commerce, réseaux sociaux et bien plus. Une expertise locale, des standards internationaux.
+    </p>
+    <div class="cta-group fade-in delay-3">
+      <a href="#devis" class="btn btn-primary">Demander un devis →</a>
+      <a href="#services" class="btn btn-secondary">Voir nos services</a>
+    </div>
+
+    <div class="stats fade-in delay-4">
+      <div class="stat-item">
+        <h3>13+</h3>
+        <p>Services proposés</p>
+      </div>
+      <div class="stat-item">
+        <h3>100%</h3>
+        <p>Local & sur mesure</p>
+      </div>
+      <div class="stat-item">
+        <h3>24/7</h3>
+        <p>Support WhatsApp</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="section-header">
+    <div class="section-tag">Nos expertises</div>
+    <h2>Des services <span class="accent">complets</span></h2>
+    <p>13 domaines pour répondre à tous vos besoins numériques, du graphisme à l'application web la plus complexe.</p>
+  </div>
+
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-icon">🎨</div>
+      <h3>Graphisme</h3>
+      <p>Logo, carte de visite, flyer, charte graphique complète.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🌐</div>
+      <h3>Sites Web</h3>
+      <p>Sites vitrines, événementiels, landing pages professionnelles.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">📝</div>
+      <h3>Blogs</h3>
+      <p>Blogs personnels, professionnels ou thématiques optimisés.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">⚙️</div>
+      <h3>Applications Web</h3>
+      <p>Outils métiers, gestion, devis, applications sur mesure.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">📱</div>
+      <h3>Réseaux Sociaux</h3>
+      <p>Gestion Facebook, Instagram, TikTok et community management.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">📣</div>
+      <h3>Publicité Digitale</h3>
+      <p>Campagnes Facebook Ads et Google Ads performantes.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🛒</div>
+      <h3>E-commerce</h3>
+      <p>Boutiques en ligne avec paiement MTN MoMo & Moov Money.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🔍</div>
+      <h3>SEO</h3>
+      <p>Référencement naturel pour apparaître en tête sur Google.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🤖</div>
+      <h3>Automatisation</h3>
+      <p>Chatbots WhatsApp et campagnes d'email marketing.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🎓</div>
+      <h3>Formation</h3>
+      <p>Formation des PME aux outils numériques essentiels.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🎬</div>
+      <h3>Vidéo & Motion</h3>
+      <p>Montage vidéo et motion design pour vos contenus.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🔧</div>
+      <h3>Maintenance</h3>
+      <p>Hébergement et maintenance mensuelle de vos sites.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <h2>Prêt à <span style="color: var(--cyan);">démarrer</span> votre projet ?</h2>
+  <p>Obtenez un devis personnalisé en quelques clics ou contactez-nous directement sur WhatsApp.</p>
+  <div class="cta-group" style="justify-content: center;">
+    <a href="#devis" class="btn btn-primary">Devis gratuit →</a>
+    <a href="https://wa.me/22969911648" class="btn btn-secondary">💬 WhatsApp</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-content">
+    <div class="footer-col">
+      <div class="logo" style="margin-bottom: 15px;">Kol<span>@</span> Agency</div>
+      <p>Agence digitale premium basée à Akpokpota, Sèmè Podji, Bénin.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <a href="#services">Graphisme</a>
+      <a href="#services">Sites web</a>
+      <a href="#services">Applications</a>
+      <a href="#services">E-commerce</a>
+    </div>
+    <div class="footer-col">
+      <h4>Liens</h4>
+      <a href="#portfolio">Portfolio</a>
+      <a href="#devis">Devis</a>
+      <a href="#blog">Blog</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <p>📍 Akpokpota, Sèmè Podji</p>
+      <p>📱 +229 69 91 16 48</p>
+      <a href="https://wa.me/22969911648">💬 WhatsApp</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    © 2026 Kol@ Agency — Tous droits réservés
+  </div>
+</footer>
+
+<!-- WHATSAPP FLOAT -->
+<a href="https://wa.me/22969911648" class="whatsapp-float" aria-label="WhatsApp">💬</a>
+
+</body>
+</html>

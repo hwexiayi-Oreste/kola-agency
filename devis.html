@@ -1,0 +1,1437 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Devis en ligne — Kol@ Agency</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+  :root {
+    --bleu-nuit: #0a1628;
+    --bleu-nuit-2: #0f1f3d;
+    --bleu-nuit-3: #16294f;
+    --cyan: #06b6d4;
+    --cyan-clair: #67e8f9;
+    --cyan-fonce: #0891b2;
+    --blanc: #ffffff;
+    --gris: #94a3b8;
+    --gris-clair: #cbd5e1;
+    --vert: #10b981;
+    --rouge: #ef4444;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bleu-nuit);
+    color: var(--blanc);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  /* === HEADER === */
+  header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    padding: 20px 5%;
+    background: rgba(10, 22, 40, 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(6, 182, 212, 0.15);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .logo {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--blanc);
+    letter-spacing: -0.03em;
+    text-decoration: none;
+  }
+
+  .logo span { color: var(--cyan); }
+
+  nav ul {
+    display: flex;
+    list-style: none;
+    gap: 35px;
+  }
+
+  nav a {
+    color: var(--gris-clair);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: color 0.3s;
+    position: relative;
+  }
+
+  nav a.active { color: var(--cyan); }
+
+  nav a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--cyan);
+    transition: width 0.3s;
+  }
+
+  nav a:hover { color: var(--cyan); }
+  nav a:hover::after, nav a.active::after { width: 100%; }
+
+  .menu-toggle {
+    display: none;
+    font-size: 1.8rem;
+    cursor: pointer;
+    color: var(--cyan);
+    background: none;
+    border: none;
+  }
+
+  /* === PAGE HEADER === */
+  .page-header {
+    padding: 140px 5% 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .page-header::before {
+    content: '';
+    position: absolute;
+    top: 30%;
+    right: -10%;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(6, 182, 212, 0.15) 0%, transparent 70%);
+    border-radius: 50%;
+    z-index: 0;
+  }
+
+  .page-header > * { position: relative; z-index: 1; }
+
+  .page-tag {
+    display: inline-block;
+    padding: 8px 20px;
+    background: rgba(6, 182, 212, 0.1);
+    border: 1px solid var(--cyan);
+    border-radius: 50px;
+    color: var(--cyan-clair);
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+  }
+
+  .page-header h1 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    margin-bottom: 15px;
+  }
+
+  .page-header h1 .accent { color: var(--cyan); }
+
+  .page-header p {
+    color: var(--gris-clair);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  /* === STEPPER === */
+  .stepper {
+    max-width: 800px;
+    margin: 0 auto 40px;
+    padding: 0 5%;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+  }
+
+  .stepper::before {
+    content: '';
+    position: absolute;
+    top: 20px;
+    left: 10%;
+    right: 10%;
+    height: 2px;
+    background: var(--bleu-nuit-3);
+    z-index: 0;
+  }
+
+  .stepper-progress {
+    position: absolute;
+    top: 20px;
+    left: 10%;
+    height: 2px;
+    background: var(--cyan);
+    z-index: 1;
+    transition: width 0.4s;
+    width: 0;
+  }
+
+  .step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+    flex: 1;
+  }
+
+  .step-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--bleu-nuit-2);
+    border: 2px solid var(--bleu-nuit-3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    color: var(--gris);
+    transition: all 0.3s;
+  }
+
+  .step.active .step-circle {
+    background: var(--cyan);
+    border-color: var(--cyan);
+    color: var(--bleu-nuit);
+  }
+
+  .step.done .step-circle {
+    background: var(--cyan);
+    border-color: var(--cyan);
+    color: var(--bleu-nuit);
+  }
+
+  .step-label {
+    font-size: 0.8rem;
+    margin-top: 8px;
+    color: var(--gris);
+    font-weight: 500;
+  }
+
+  .step.active .step-label, .step.done .step-label {
+    color: var(--blanc);
+  }
+
+  /* === FORMULAIRE === */
+  .form-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 5% 60px;
+  }
+
+  .form-step {
+    display: none;
+    background: var(--bleu-nuit-2);
+    border: 1px solid rgba(6, 182, 212, 0.15);
+    border-radius: 20px;
+    padding: 40px;
+    animation: fadeIn 0.4s;
+  }
+
+  .form-step.active { display: block; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .form-step h2 {
+    font-size: 1.6rem;
+    margin-bottom: 8px;
+  }
+
+  .form-step .step-desc {
+    color: var(--gris-clair);
+    margin-bottom: 30px;
+    font-size: 0.95rem;
+  }
+
+  /* Sélection service */
+  .services-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 12px;
+  }
+
+  .service-option {
+    background: var(--bleu-nuit-3);
+    border: 2px solid transparent;
+    border-radius: 12px;
+    padding: 18px;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-align: center;
+  }
+
+  .service-option:hover {
+    border-color: rgba(6, 182, 212, 0.4);
+    transform: translateY(-3px);
+  }
+
+  .service-option.selected {
+    border-color: var(--cyan);
+    background: rgba(6, 182, 212, 0.1);
+  }
+
+  .service-option .ico {
+    font-size: 2rem;
+    margin-bottom: 8px;
+  }
+
+  .service-option .name {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin-bottom: 5px;
+  }
+
+  .service-option .price {
+    color: var(--cyan);
+    font-size: 0.85rem;
+  }
+
+  /* Options */
+  .options-block {
+    margin-bottom: 25px;
+  }
+
+  .options-block label {
+    display: block;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: var(--blanc);
+  }
+
+  .options-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 10px;
+  }
+
+  .option-pill {
+    background: var(--bleu-nuit-3);
+    border: 2px solid transparent;
+    border-radius: 10px;
+    padding: 14px;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-align: center;
+  }
+
+  .option-pill:hover { border-color: rgba(6, 182, 212, 0.4); }
+
+  .option-pill.selected {
+    border-color: var(--cyan);
+    background: rgba(6, 182, 212, 0.1);
+  }
+
+  .option-pill .label {
+    font-size: 0.92rem;
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+
+  .option-pill .extra {
+    font-size: 0.78rem;
+    color: var(--cyan);
+  }
+
+  /* Infos */
+  .input-group {
+    margin-bottom: 18px;
+  }
+
+  .input-group label {
+    display: block;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 500;
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+    color: var(--gris-clair);
+  }
+
+  .input-group label .req { color: var(--rouge); }
+
+  .input-group input,
+  .input-group textarea {
+    width: 100%;
+    padding: 14px 16px;
+    background: var(--bleu-nuit-3);
+    border: 2px solid transparent;
+    border-radius: 10px;
+    color: var(--blanc);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    transition: all 0.3s;
+  }
+
+  .input-group input:focus,
+  .input-group textarea:focus {
+    outline: none;
+    border-color: var(--cyan);
+  }
+
+  .input-group input::placeholder,
+  .input-group textarea::placeholder {
+    color: var(--gris);
+  }
+
+  .input-group textarea {
+    resize: vertical;
+    min-height: 100px;
+  }
+
+  /* Récap */
+  .recap-block {
+    background: var(--bleu-nuit-3);
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 20px;
+  }
+
+  .recap-line {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(6, 182, 212, 0.1);
+    font-size: 0.95rem;
+  }
+
+  .recap-line:last-child { border-bottom: none; }
+
+  .recap-line .lab { color: var(--gris-clair); }
+  .recap-line .val { color: var(--blanc); font-weight: 500; }
+
+  .total-block {
+    background: linear-gradient(135deg, rgba(6, 182, 212, 0.15) 0%, rgba(103, 232, 249, 0.08) 100%);
+    border: 1px solid var(--cyan);
+    border-radius: 12px;
+    padding: 25px;
+    text-align: center;
+    margin-bottom: 25px;
+  }
+
+  .total-label {
+    color: var(--gris-clair);
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+
+  .total-amount {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--cyan);
+  }
+
+  .total-amount span { font-size: 1.2rem; color: var(--gris-clair); }
+
+  .total-note {
+    color: var(--gris);
+    font-size: 0.8rem;
+    margin-top: 8px;
+  }
+
+  /* Boutons */
+  .form-actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    margin-top: 30px;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    padding: 14px 30px;
+    border-radius: 8px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: all 0.3s;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .btn-primary {
+    background: var(--cyan);
+    color: var(--bleu-nuit);
+  }
+
+  .btn-primary:hover {
+    background: var(--cyan-clair);
+    transform: translateY(-3px);
+  }
+
+  .btn-primary:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--blanc);
+    border: 2px solid rgba(6, 182, 212, 0.5);
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--cyan);
+    background: rgba(6, 182, 212, 0.1);
+  }
+
+  .btn-whatsapp {
+    background: #25d366;
+    color: white;
+  }
+
+  .btn-whatsapp:hover {
+    background: #1fb858;
+    transform: translateY(-3px);
+  }
+
+  .actions-final {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-top: 25px;
+  }
+
+  /* Devis number */
+  .devis-num {
+    text-align: center;
+    padding: 12px;
+    background: rgba(6, 182, 212, 0.05);
+    border-radius: 8px;
+    margin-bottom: 20px;
+    color: var(--cyan-clair);
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+  }
+
+  /* Erreur */
+  .error-msg {
+    color: var(--rouge);
+    font-size: 0.85rem;
+    margin-top: 5px;
+    display: none;
+  }
+
+  .error-msg.show { display: block; }
+
+  /* === FOOTER === */
+  footer {
+    background: var(--bleu-nuit);
+    padding: 60px 5% 30px;
+    border-top: 1px solid rgba(6, 182, 212, 0.15);
+  }
+
+  .footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 40px;
+    max-width: 1300px;
+    margin: 0 auto 40px;
+  }
+
+  .footer-col h4 { color: var(--cyan); margin-bottom: 20px; font-size: 1.1rem; }
+  .footer-col p, .footer-col a {
+    color: var(--gris); font-size: 0.9rem; text-decoration: none;
+    display: block; margin-bottom: 10px; transition: color 0.3s;
+  }
+  .footer-col a:hover { color: var(--cyan); }
+
+  .footer-bottom {
+    text-align: center;
+    padding-top: 30px;
+    border-top: 1px solid rgba(6, 182, 212, 0.1);
+    color: var(--gris);
+    font-size: 0.85rem;
+  }
+
+  .whatsapp-float {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    background: #25d366;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4);
+    z-index: 99;
+    text-decoration: none;
+    font-size: 1.8rem;
+    transition: all 0.3s;
+    animation: pulse 2s infinite;
+  }
+  .whatsapp-float:hover { transform: scale(1.1); }
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4); }
+    50% { box-shadow: 0 10px 40px rgba(37, 211, 102, 0.7); }
+  }
+
+  /* === RESPONSIVE === */
+  @media (max-width: 768px) {
+    nav ul {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: var(--bleu-nuit-2);
+      flex-direction: column;
+      padding: 20px;
+      gap: 15px;
+    }
+    nav ul.active { display: flex; }
+    .menu-toggle { display: block; }
+    .form-step { padding: 25px 20px; }
+    .step-label { display: none; }
+    .actions-final { grid-template-columns: 1fr; }
+    .form-actions { flex-direction: column-reverse; }
+    .form-actions .btn { width: 100%; justify-content: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <a href="index.html" class="logo">Kol<span>@</span> Agency</a>
+  <nav>
+    <ul id="nav-menu">
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="portfolio.html">Portfolio</a></li>
+      <li><a href="devis.html" class="active">Devis</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <button class="menu-toggle" onclick="document.getElementById('nav-menu').classList.toggle('active')">☰</button>
+  </nav>
+</header>
+
+<!-- PAGE HEADER -->
+<section class="page-header">
+  <span class="page-tag">📋 DEVIS EN LIGNE</span>
+  <h1>Obtenez votre <span class="accent">devis gratuit</span></h1>
+  <p>En 4 étapes simples, calculez le coût de votre projet et recevez votre devis en PDF ou directement sur WhatsApp.</p>
+</section>
+
+<!-- STEPPER -->
+<div class="stepper">
+  <div class="stepper-progress" id="progress-bar"></div>
+  <div class="step active" data-step="1">
+    <div class="step-circle">1</div>
+    <div class="step-label">Service</div>
+  </div>
+  <div class="step" data-step="2">
+    <div class="step-circle">2</div>
+    <div class="step-label">Options</div>
+  </div>
+  <div class="step" data-step="3">
+    <div class="step-circle">3</div>
+    <div class="step-label">Vos infos</div>
+  </div>
+  <div class="step" data-step="4">
+    <div class="step-circle">4</div>
+    <div class="step-label">Récap</div>
+  </div>
+</div>
+
+<!-- FORMULAIRE -->
+<section class="form-container">
+
+  <!-- ÉTAPE 1 : Choix du service -->
+  <div class="form-step active" data-step="1">
+    <h2>Choisissez un service</h2>
+    <p class="step-desc">Sélectionnez le service qui correspond à votre projet.</p>
+
+    <div class="services-list" id="services-list">
+      <!-- Généré par JS -->
+    </div>
+  </div>
+
+  <!-- ÉTAPE 2 : Options -->
+  <div class="form-step" data-step="2">
+    <h2>Personnalisez votre projet</h2>
+    <p class="step-desc">Ajustez les options pour obtenir un devis précis.</p>
+
+    <div id="options-container">
+      <!-- Généré par JS selon le service -->
+    </div>
+  </div>
+
+  <!-- ÉTAPE 3 : Infos client -->
+  <div class="form-step" data-step="3">
+    <h2>Vos coordonnées</h2>
+    <p class="step-desc">Pour pouvoir vous envoyer le devis et vous recontacter.</p>
+
+    <div class="input-group">
+      <label>Nom complet <span class="req">*</span></label>
+      <input type="text" id="client-nom" placeholder="Votre nom et prénom">
+      <div class="error-msg" id="err-nom">Veuillez entrer votre nom</div>
+    </div>
+
+    <div class="input-group">
+      <label>Téléphone <span class="req">*</span></label>
+      <input type="tel" id="client-tel" placeholder="+229 XX XX XX XX">
+      <div class="error-msg" id="err-tel">Veuillez entrer votre numéro</div>
+    </div>
+
+    <div class="input-group">
+      <label>Email</label>
+      <input type="email" id="client-email" placeholder="exemple@email.com">
+    </div>
+
+    <div class="input-group">
+      <label>Entreprise (optionnel)</label>
+      <input type="text" id="client-ent" placeholder="Nom de votre entreprise">
+    </div>
+
+    <div class="input-group">
+      <label>Description du projet</label>
+      <textarea id="client-desc" placeholder="Parlez-nous de votre projet..."></textarea>
+    </div>
+  </div>
+
+  <!-- ÉTAPE 4 : Récap -->
+  <div class="form-step" data-step="4">
+    <h2>Récapitulatif de votre devis</h2>
+    <p class="step-desc">Vérifiez les informations avant validation.</p>
+
+    <div class="devis-num" id="devis-num">N° KOL-2026-0001</div>
+
+    <div class="recap-block" id="recap-block">
+      <!-- Généré par JS -->
+    </div>
+
+    <div class="total-block">
+      <div class="total-label">Total estimé</div>
+      <div class="total-amount" id="total-amount">0 <span>FCFA</span></div>
+      <div class="total-note">Prix indicatif — un devis final vous sera transmis</div>
+    </div>
+
+    <div class="actions-final">
+      <button class="btn btn-primary" onclick="genererPDF()">📄 Télécharger PDF</button>
+      <button class="btn btn-whatsapp" onclick="envoyerWhatsApp()">💬 Envoyer sur WhatsApp</button>
+    </div>
+  </div>
+
+  <!-- BOUTONS NAVIGATION -->
+  <div class="form-actions" id="nav-actions">
+    <button class="btn btn-secondary" id="btn-prev" onclick="changerEtape(-1)" style="visibility: hidden;">← Précédent</button>
+    <button class="btn btn-primary" id="btn-next" onclick="changerEtape(1)">Suivant →</button>
+  </div>
+
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-content">
+    <div class="footer-col">
+      <a href="index.html" class="logo" style="display: block; margin-bottom: 15px;">Kol<span>@</span> Agency</a>
+      <p>Agence digitale premium basée à Akpokpota, Sèmè Podji, Bénin.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <a href="services.html">Graphisme</a>
+      <a href="services.html">Sites web</a>
+      <a href="services.html">Applications</a>
+    </div>
+    <div class="footer-col">
+      <h4>Liens</h4>
+      <a href="portfolio.html">Portfolio</a>
+      <a href="blog.html">Blog</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <p>📍 Akpokpota, Sèmè Podji</p>
+      <p>📱 +229 69 91 16 48</p>
+      <a href="https://wa.me/22969911648">💬 WhatsApp</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    © 2026 Kol@ Agency — Tous droits réservés
+  </div>
+</footer>
+
+<a href="https://wa.me/22969911648" class="whatsapp-float" aria-label="WhatsApp">💬</a>
+
+<script>
+  // ============ DONNÉES SERVICES ============
+  const SERVICES = {
+    'logo': {
+      nom: 'Logo Simple',
+      ico: '🎨',
+      basePrix: 10000,
+      options: [
+        {
+          label: 'Niveau de complexité',
+          type: 'single',
+          choix: [
+            { val: 'simple', label: 'Simple', extra: 0 },
+            { val: 'avance', label: 'Avancé', extra: 10000 },
+            { val: 'premium', label: 'Premium', extra: 15000 }
+          ]
+        },
+        {
+          label: 'Révisions supplémentaires',
+          type: 'single',
+          choix: [
+            { val: '0', label: 'Aucune', extra: 0 },
+            { val: '2', label: '+2 révisions', extra: 5000 },
+            { val: '5', label: '+5 révisions', extra: 10000 }
+          ]
+        }
+      ]
+    },
+    'identite': {
+      nom: 'Identité Visuelle',
+      ico: '✨',
+      basePrix: 30000,
+      options: [
+        {
+          label: 'Étendue',
+          type: 'single',
+          choix: [
+            { val: 'base', label: 'Logo + charte', extra: 0 },
+            { val: 'standard', label: '+ Carte de visite', extra: 15000 },
+            { val: 'complet', label: 'Pack complet', extra: 30000 }
+          ]
+        }
+      ]
+    },
+    'site-vitrine': {
+      nom: 'Site Vitrine',
+      ico: '🌐',
+      basePrix: 75000,
+      options: [
+        {
+          label: 'Nombre de pages',
+          type: 'single',
+          choix: [
+            { val: '3', label: '3 pages', extra: 0 },
+            { val: '5', label: '5 pages', extra: 25000 },
+            { val: '10', label: '10 pages', extra: 60000 }
+          ]
+        },
+        {
+          label: 'Options',
+          type: 'multi',
+          choix: [
+            { val: 'multilingue', label: 'Multilingue (FR/EN)', extra: 30000 },
+            { val: 'newsletter', label: 'Newsletter', extra: 15000 },
+            { val: 'animations', label: 'Animations avancées', extra: 20000 }
+          ]
+        }
+      ]
+    },
+    'evenementiel': {
+      nom: 'Site Événementiel',
+      ico: '🎉',
+      basePrix: 100000,
+      options: [
+        {
+          label: 'Type d\'événement',
+          type: 'single',
+          choix: [
+            { val: 'mariage', label: 'Mariage', extra: 0 },
+            { val: 'conference', label: 'Conférence', extra: 20000 },
+            { val: 'festival', label: 'Festival', extra: 40000 }
+          ]
+        },
+        {
+          label: 'Inscription en ligne',
+          type: 'single',
+          choix: [
+            { val: 'non', label: 'Non', extra: 0 },
+            { val: 'gratuit', label: 'Gratuite', extra: 25000 },
+            { val: 'payant', label: 'Avec paiement', extra: 50000 }
+          ]
+        }
+      ]
+    },
+    'blog': {
+      nom: 'Blog Professionnel',
+      ico: '📝',
+      basePrix: 50000,
+      options: [
+        {
+          label: 'Articles initiaux',
+          type: 'single',
+          choix: [
+            { val: '0', label: 'Aucun', extra: 0 },
+            { val: '5', label: '5 articles', extra: 15000 },
+            { val: '10', label: '10 articles', extra: 25000 }
+          ]
+        }
+      ]
+    },
+    'app': {
+      nom: 'Application Web',
+      ico: '⚙️',
+      basePrix: 150000,
+      options: [
+        {
+          label: 'Complexité',
+          type: 'single',
+          choix: [
+            { val: 'simple', label: 'Simple', extra: 0 },
+            { val: 'moyenne', label: 'Moyenne', extra: 100000 },
+            { val: 'complexe', label: 'Complexe', extra: 250000 }
+          ]
+        },
+        {
+          label: 'Options',
+          type: 'multi',
+          choix: [
+            { val: 'auth', label: 'Authentification', extra: 30000 },
+            { val: 'admin', label: 'Panel admin', extra: 50000 },
+            { val: 'api', label: 'API externe', extra: 40000 }
+          ]
+        }
+      ]
+    },
+    'ecommerce': {
+      nom: 'Boutique E-commerce',
+      ico: '🛒',
+      basePrix: 200000,
+      options: [
+        {
+          label: 'Nombre de produits',
+          type: 'single',
+          choix: [
+            { val: '20', label: 'Jusqu\'à 20', extra: 0 },
+            { val: '100', label: 'Jusqu\'à 100', extra: 50000 },
+            { val: 'illimite', label: 'Illimité', extra: 100000 }
+          ]
+        },
+        {
+          label: 'Options',
+          type: 'multi',
+          choix: [
+            { val: 'momo', label: 'MTN MoMo + Moov', extra: 0 },
+            { val: 'livraison', label: 'Gestion livraison', extra: 30000 },
+            { val: 'stock', label: 'Gestion stock', extra: 25000 }
+          ]
+        }
+      ]
+    },
+    'reseaux': {
+      nom: 'Réseaux Sociaux (mois)',
+      ico: '📱',
+      basePrix: 25000,
+      options: [
+        {
+          label: 'Nombre de réseaux',
+          type: 'single',
+          choix: [
+            { val: '1', label: '1 réseau', extra: 0 },
+            { val: '2', label: '2 réseaux', extra: 15000 },
+            { val: '3', label: '3 réseaux', extra: 30000 }
+          ]
+        },
+        {
+          label: 'Publications/semaine',
+          type: 'single',
+          choix: [
+            { val: '3', label: '3 posts', extra: 0 },
+            { val: '5', label: '5 posts', extra: 15000 },
+            { val: '7', label: '7 posts', extra: 25000 }
+          ]
+        }
+      ]
+    },
+    'pub': {
+      nom: 'Publicité Digitale',
+      ico: '📣',
+      basePrix: 25000,
+      options: [
+        {
+          label: 'Plateforme',
+          type: 'single',
+          choix: [
+            { val: 'fb', label: 'Facebook Ads', extra: 0 },
+            { val: 'google', label: 'Google Ads', extra: 5000 },
+            { val: 'les2', label: 'Les deux', extra: 15000 }
+          ]
+        }
+      ]
+    },
+    'seo': {
+      nom: 'SEO Référencement (mois)',
+      ico: '🔍',
+      basePrix: 35000,
+      options: [
+        {
+          label: 'Niveau',
+          type: 'single',
+          choix: [
+            { val: 'basique', label: 'Basique', extra: 0 },
+            { val: 'standard', label: 'Standard', extra: 30000 },
+            { val: 'pro', label: 'Pro', extra: 65000 }
+          ]
+        }
+      ]
+    },
+    'chatbot': {
+      nom: 'Chatbot WhatsApp',
+      ico: '🤖',
+      basePrix: 50000,
+      options: [
+        {
+          label: 'Fonctionnalités',
+          type: 'multi',
+          choix: [
+            { val: 'auto', label: 'Réponses auto', extra: 0 },
+            { val: 'cat', label: 'Catalogue', extra: 25000 },
+            { val: 'cmd', label: 'Prise commandes', extra: 50000 }
+          ]
+        }
+      ]
+    },
+    'formation': {
+      nom: 'Formation (par jour)',
+      ico: '🎓',
+      basePrix: 25000,
+      options: [
+        {
+          label: 'Lieu',
+          type: 'single',
+          choix: [
+            { val: 'en-ligne', label: 'En ligne', extra: 0 },
+            { val: 'sur-place', label: 'Sur place', extra: 15000 }
+          ]
+        },
+        {
+          label: 'Nombre de participants',
+          type: 'single',
+          choix: [
+            { val: '5', label: 'Jusqu\'à 5', extra: 0 },
+            { val: '10', label: 'Jusqu\'à 10', extra: 10000 },
+            { val: '20', label: 'Jusqu\'à 20', extra: 25000 }
+          ]
+        }
+      ]
+    },
+    'video': {
+      nom: 'Montage Vidéo',
+      ico: '🎬',
+      basePrix: 10000,
+      options: [
+        {
+          label: 'Durée',
+          type: 'single',
+          choix: [
+            { val: '1min', label: '< 1 minute', extra: 0 },
+            { val: '5min', label: '1-5 minutes', extra: 15000 },
+            { val: '10min', label: '5-10 minutes', extra: 30000 }
+          ]
+        }
+      ]
+    },
+    'maintenance': {
+      nom: 'Maintenance (mois)',
+      ico: '🔧',
+      basePrix: 7500,
+      options: [
+        {
+          label: 'Niveau',
+          type: 'single',
+          choix: [
+            { val: 'basique', label: 'Basique', extra: 0 },
+            { val: 'standard', label: 'Standard', extra: 7500 },
+            { val: 'premium', label: 'Premium', extra: 17500 }
+          ]
+        }
+      ]
+    }
+  };
+
+  // ============ ÉTAT ============
+  let etape = 1;
+  let serviceChoisi = null;
+  let optionsChoisies = {};
+  const numeroDevis = 'KOL-2026-' + String(Math.floor(Math.random() * 9000) + 1000);
+
+  // Init au chargement
+  document.addEventListener('DOMContentLoaded', () => {
+    afficherServices();
+    document.getElementById('devis-num').textContent = 'N° ' + numeroDevis;
+    majProgressBar();
+
+    // Pré-sélection si paramètre URL
+    const params = new URLSearchParams(window.location.search);
+    const presel = params.get('service');
+    if (presel && SERVICES[presel]) {
+      setTimeout(() => {
+        const card = document.querySelector(`[data-service="${presel}"]`);
+        if (card) card.click();
+      }, 100);
+    }
+  });
+
+  // ============ AFFICHAGE SERVICES ============
+  function afficherServices() {
+    const liste = document.getElementById('services-list');
+    liste.innerHTML = '';
+    Object.entries(SERVICES).forEach(([key, srv]) => {
+      const div = document.createElement('div');
+      div.className = 'service-option';
+      div.dataset.service = key;
+      div.innerHTML = `
+        <div class="ico">${srv.ico}</div>
+        <div class="name">${srv.nom}</div>
+        <div class="price">À partir de ${srv.basePrix.toLocaleString('fr-FR')} FCFA</div>
+      `;
+      div.onclick = () => choisirService(key, div);
+      liste.appendChild(div);
+    });
+  }
+
+  function choisirService(key, el) {
+    document.querySelectorAll('.service-option').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+    serviceChoisi = key;
+    optionsChoisies = {};
+  }
+
+  // ============ AFFICHAGE OPTIONS ============
+  function afficherOptions() {
+    const cont = document.getElementById('options-container');
+    cont.innerHTML = '';
+    if (!serviceChoisi) return;
+
+    const srv = SERVICES[serviceChoisi];
+    srv.options.forEach((opt, idx) => {
+      const block = document.createElement('div');
+      block.className = 'options-block';
+      block.innerHTML = `<label>${opt.label}</label>`;
+      const grid = document.createElement('div');
+      grid.className = 'options-grid';
+
+      opt.choix.forEach(c => {
+        const pill = document.createElement('div');
+        pill.className = 'option-pill';
+        pill.innerHTML = `
+          <div class="label">${c.label}</div>
+          ${c.extra > 0 ? `<div class="extra">+${c.extra.toLocaleString('fr-FR')} FCFA</div>` : '<div class="extra">Inclus</div>'}
+        `;
+        pill.onclick = () => toggleOption(idx, opt.type, c, pill);
+        grid.appendChild(pill);
+      });
+
+      block.appendChild(grid);
+      cont.appendChild(block);
+
+      // Pré-sélection du premier choix pour single
+      if (opt.type === 'single' && !optionsChoisies[idx]) {
+        const firstPill = grid.querySelector('.option-pill');
+        firstPill.classList.add('selected');
+        optionsChoisies[idx] = [opt.choix[0]];
+      } else if (optionsChoisies[idx]) {
+        // Restaurer sélection
+        optionsChoisies[idx].forEach(sel => {
+          const pills = grid.querySelectorAll('.option-pill');
+          opt.choix.forEach((c, i) => {
+            if (c.val === sel.val) pills[i].classList.add('selected');
+          });
+        });
+      }
+    });
+  }
+
+  function toggleOption(idx, type, choix, pill) {
+    if (type === 'single') {
+      pill.parentElement.querySelectorAll('.option-pill').forEach(p => p.classList.remove('selected'));
+      pill.classList.add('selected');
+      optionsChoisies[idx] = [choix];
+    } else {
+      pill.classList.toggle('selected');
+      if (!optionsChoisies[idx]) optionsChoisies[idx] = [];
+      const exist = optionsChoisies[idx].findIndex(c => c.val === choix.val);
+      if (exist >= 0) optionsChoisies[idx].splice(exist, 1);
+      else optionsChoisies[idx].push(choix);
+    }
+  }
+
+  // ============ CALCUL TOTAL ============
+  function calculerTotal() {
+    if (!serviceChoisi) return 0;
+    let total = SERVICES[serviceChoisi].basePrix;
+    Object.values(optionsChoisies).forEach(arr => {
+      arr.forEach(c => total += c.extra);
+    });
+    return total;
+  }
+
+  // ============ NAVIGATION ============
+  function changerEtape(dir) {
+    // Validation avant d'avancer
+    if (dir > 0) {
+      if (etape === 1 && !serviceChoisi) {
+        alert('Veuillez choisir un service');
+        return;
+      }
+      if (etape === 3) {
+        const nom = document.getElementById('client-nom').value.trim();
+        const tel = document.getElementById('client-tel').value.trim();
+        let ok = true;
+        if (!nom) { document.getElementById('err-nom').classList.add('show'); ok = false; }
+        else document.getElementById('err-nom').classList.remove('show');
+        if (!tel) { document.getElementById('err-tel').classList.add('show'); ok = false; }
+        else document.getElementById('err-tel').classList.remove('show');
+        if (!ok) return;
+      }
+    }
+
+    document.querySelector(`.form-step[data-step="${etape}"]`).classList.remove('active');
+    document.querySelector(`.step[data-step="${etape}"]`).classList.remove('active');
+    if (dir > 0) document.querySelector(`.step[data-step="${etape}"]`).classList.add('done');
+    else document.querySelector(`.step[data-step="${etape}"]`).classList.remove('done');
+
+    etape += dir;
+
+    document.querySelector(`.form-step[data-step="${etape}"]`).classList.add('active');
+    document.querySelector(`.step[data-step="${etape}"]`).classList.add('active');
+
+    // Actions par étape
+    if (etape === 2) afficherOptions();
+    if (etape === 4) afficherRecap();
+
+    // Boutons nav
+    document.getElementById('btn-prev').style.visibility = etape === 1 ? 'hidden' : 'visible';
+    const navActions = document.getElementById('nav-actions');
+    navActions.style.display = etape === 4 ? 'none' : 'flex';
+    document.getElementById('btn-next').textContent = etape === 3 ? 'Voir le devis →' : 'Suivant →';
+
+    majProgressBar();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function majProgressBar() {
+    const pct = ((etape - 1) / 3) * 80;
+    document.getElementById('progress-bar').style.width = pct + '%';
+  }
+
+  // ============ RÉCAP ============
+  function afficherRecap() {
+    const recap = document.getElementById('recap-block');
+    const srv = SERVICES[serviceChoisi];
+    let html = `
+      <div class="recap-line"><span class="lab">Service</span><span class="val">${srv.ico} ${srv.nom}</span></div>
+      <div class="recap-line"><span class="lab">Prix de base</span><span class="val">${srv.basePrix.toLocaleString('fr-FR')} FCFA</span></div>
+    `;
+
+    Object.entries(optionsChoisies).forEach(([idx, arr]) => {
+      arr.forEach(c => {
+        if (c.extra > 0) {
+          html += `<div class="recap-line"><span class="lab">+ ${c.label}</span><span class="val">+${c.extra.toLocaleString('fr-FR')} FCFA</span></div>`;
+        }
+      });
+    });
+
+    const nom = document.getElementById('client-nom').value;
+    const tel = document.getElementById('client-tel').value;
+    html += `
+      <div class="recap-line"><span class="lab">Client</span><span class="val">${nom}</span></div>
+      <div class="recap-line"><span class="lab">Téléphone</span><span class="val">${tel}</span></div>
+    `;
+
+    recap.innerHTML = html;
+    document.getElementById('total-amount').innerHTML = calculerTotal().toLocaleString('fr-FR') + ' <span>FCFA</span>';
+  }
+
+  // ============ PDF ============
+  function genererPDF() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    const srv = SERVICES[serviceChoisi];
+    const nom = document.getElementById('client-nom').value;
+    const tel = document.getElementById('client-tel').value;
+    const email = document.getElementById('client-email').value || '-';
+    const ent = document.getElementById('client-ent').value || '-';
+    const desc = document.getElementById('client-desc').value || '-';
+    const total = calculerTotal();
+    const date = new Date().toLocaleDateString('fr-FR');
+
+    // Header
+    doc.setFillColor(10, 22, 40);
+    doc.rect(0, 0, 210, 35, 'F');
+    doc.setTextColor(255, 255, 255);
+    doc.setFontSize(22);
+    doc.setFont('helvetica', 'bold');
+    doc.text('Kol@ Agency', 20, 20);
+    doc.setFontSize(9);
+    doc.setFont('helvetica', 'normal');
+    doc.text('Agence Digitale Premium', 20, 27);
+
+    doc.setTextColor(6, 182, 212);
+    doc.setFontSize(14);
+    doc.setFont('helvetica', 'bold');
+    doc.text('DEVIS', 175, 20);
+    doc.setFontSize(10);
+    doc.text(numeroDevis, 175, 27);
+
+    // Infos
+    doc.setTextColor(40, 40, 40);
+    doc.setFontSize(9);
+    doc.setFont('helvetica', 'normal');
+    doc.text('Date : ' + date, 20, 50);
+    doc.text('Akpokpota, Sèmè Podji, Bénin', 20, 56);
+    doc.text('Tél : +229 69 91 16 48', 20, 62);
+
+    // Client
+    doc.setFillColor(240, 248, 255);
+    doc.rect(20, 75, 170, 35, 'F');
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(11);
+    doc.setTextColor(10, 22, 40);
+    doc.text('CLIENT', 25, 84);
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(9);
+    doc.setTextColor(60, 60, 60);
+    doc.text('Nom : ' + nom, 25, 92);
+    doc.text('Tél : ' + tel, 25, 98);
+    doc.text('Email : ' + email, 25, 104);
+    doc.text('Entreprise : ' + ent, 110, 92);
+
+    // Tableau
+    let y = 125;
+    doc.setFillColor(6, 182, 212);
+    doc.rect(20, y, 170, 8, 'F');
+    doc.setTextColor(255, 255, 255);
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(10);
+    doc.text('DESIGNATION', 25, y + 6);
+    doc.text('MONTANT (FCFA)', 145, y + 6);
+    y += 12;
+
+    doc.setTextColor(40, 40, 40);
+    doc.setFont('helvetica', 'normal');
+    doc.text(srv.nom + ' (base)', 25, y);
+    doc.text(srv.basePrix.toLocaleString('fr-FR'), 145, y);
+    y += 7;
+
+    Object.entries(optionsChoisies).forEach(([idx, arr]) => {
+      arr.forEach(c => {
+        if (c.extra > 0) {
+          doc.text('+ ' + c.label, 25, y);
+          doc.text(c.extra.toLocaleString('fr-FR'), 145, y);
+          y += 7;
+        }
+      });
+    });
+
+    // Total
+    y += 5;
+    doc.setDrawColor(6, 182, 212);
+    doc.setLineWidth(0.5);
+    doc.line(20, y, 190, y);
+    y += 8;
+    doc.setFillColor(6, 182, 212);
+    doc.rect(20, y - 5, 170, 12, 'F');
+    doc.setTextColor(255, 255, 255);
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(12);
+    doc.text('TOTAL ESTIMÉ', 25, y + 3);
+    doc.text(total.toLocaleString('fr-FR') + ' FCFA', 140, y + 3);
+
+    // Description projet
+    if (desc !== '-') {
+      y += 25;
+      doc.setTextColor(10, 22, 40);
+      doc.setFontSize(11);
+      doc.setFont('helvetica', 'bold');
+      doc.text('DESCRIPTION DU PROJET', 20, y);
+      y += 6;
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(9);
+      doc.setTextColor(60, 60, 60);
+      const lignes = doc.splitTextToSize(desc, 170);
+      doc.text(lignes, 20, y);
+    }
+
+    // Footer
+    doc.setFillColor(10, 22, 40);
+    doc.rect(0, 280, 210, 17, 'F');
+    doc.setTextColor(255, 255, 255);
+    doc.setFontSize(8);
+    doc.setFont('helvetica', 'normal');
+    doc.text('Kol@ Agency - Agence Digitale Premium - Bénin', 105, 287, { align: 'center' });
+    doc.text('WhatsApp : +229 69 91 16 48 | Devis valable 30 jours', 105, 292, { align: 'center' });
+
+    doc.save('Devis_' + numeroDevis + '.pdf');
+  }
+
+  // ============ WHATSAPP ============
+  function envoyerWhatsApp() {
+    const srv = SERVICES[serviceChoisi];
+    const nom = document.getElementById('client-nom').value;
+    const tel = document.getElementById('client-tel').value;
+    const email = document.getElementById('client-email').value;
+    const ent = document.getElementById('client-ent').value;
+    const desc = document.getElementById('client-desc').value;
+    const total = calculerTotal();
+
+    let msg = `*DEMANDE DE DEVIS - ${numeroDevis}*\n\n`;
+    msg += `*Service :* ${srv.ico} ${srv.nom}\n`;
+    msg += `*Prix de base :* ${srv.basePrix.toLocaleString('fr-FR')} FCFA\n\n`;
+
+    msg += `*Options choisies :*\n`;
+    Object.entries(optionsChoisies).forEach(([idx, arr]) => {
+      arr.forEach(c => {
+        msg += `• ${c.label}${c.extra > 0 ? ' (+' + c.extra.toLocaleString('fr-FR') + ' FCFA)' : ''}\n`;
+      });
+    });
+
+    msg += `\n*TOTAL ESTIMÉ : ${total.toLocaleString('fr-FR')} FCFA*\n\n`;
+    msg += `*Mes coordonnées :*\n`;
+    msg += `Nom : ${nom}\n`;
+    msg += `Téléphone : ${tel}\n`;
+    if (email) msg += `Email : ${email}\n`;
+    if (ent) msg += `Entreprise : ${ent}\n`;
+    if (desc) msg += `\n*Description :*\n${desc}\n`;
+
+    msg += `\n_Devis généré sur kol-agency.com_`;
+
+    const url = `https://wa.me/22969911648?text=${encodeURIComponent(msg)}`;
+    window.open(url, '_blank');
+  }
+</script>
+
+</body>
+</html>
