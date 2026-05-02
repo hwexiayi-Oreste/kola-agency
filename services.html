@@ -52,6 +52,8 @@
     align-items: center;
   }
 
+  .logo-header { display: flex; align-items: center; text-decoration: none; height: 48px; }
+  .logo-header svg { height: 48px; width: auto; }
   .logo {
     font-family: 'Space Grotesk', sans-serif;
     font-size: 1.8rem;
@@ -482,7 +484,7 @@
 
 <!-- HEADER -->
 <header>
-  <a href="index.html" class="logo">Kol<span>@</span> Agency</a>
+  <a href="./index.html" class="logo-header" id="logo-wrap"></a>
   <nav>
     <ul id="nav-menu">
       <li><a href="index.html">Accueil</a></li>
@@ -775,7 +777,7 @@
 <footer>
   <div class="footer-content">
     <div class="footer-col">
-      <a href="index.html" class="logo" style="display: block; margin-bottom: 15px;">Kol<span>@</span> Agency</a>
+      <a href="./index.html" class="logo-footer"></a>
       <p>Agence digitale premium basée à Akpokpota, Sèmè Podji, Bénin.</p>
     </div>
     <div class="footer-col">
@@ -828,5 +830,6 @@
   });
 </script>
 
+<script src="./logo.js"></script>
 </body>
 </html>
